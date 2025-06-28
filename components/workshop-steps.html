@@ -17,33 +17,46 @@
                 <button onclick="startTimer(15 * 60, 'timer1')" class="mt-2 px-4 py-1 bg-cyan-500/80 text-white rounded-full text-sm hover:bg-cyan-500 transition">启动计时</button>
             </div>
         </div>
-        <div class="grid md:grid-cols-2 gap-4 md:gap-6 items-center">
-            <div class="bg-white/5 p-6 rounded-lg">
+        
+        <!-- 简化后的内容 -->
+        <div class="space-y-4">
+            <div class="bg-white/5 p-4 rounded-lg">
                 <h4 class="font-bold text-lg text-white">游戏规则</h4>
                 <p class="text-gray-400 mt-2 text-sm">这是一个关于"数据"的趣味游戏，帮助我们快速相互了解。</p>
-                <ol class="list-decimal list-inside text-gray-300 mt-4 space-y-2 text-sm">
+                <ol class="list-decimal list-inside text-gray-300 mt-3 space-y-1 text-sm">
                     <li>每人领取3张便利贴。</li>
                     <li>写下3个关于你和数据的故事：<span class="text-green-400">2个真的</span>, <span class="text-red-400">1个假的</span>。</li>
                     <li>轮流分享你的3个故事。</li>
                     <li>其他伙伴投票，猜出哪个是假的！</li>
                 </ol>
             </div>
-            <div class="bg-white/5 p-6 rounded-lg flex flex-col items-center justify-center">
-                 <h4 class="font-bold text-lg text-white mb-4">例如...</h4>
-                 <div class="space-y-3 w-full">
-                    <div class="flex items-center bg-gray-900/50 p-3 rounded-lg">
-                        <svg class="w-6 h-6 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        <span class="text-sm">我曾经因为一个SQL Bug导致全公司报表算错。</span>
+            
+            <!-- 折叠式示例 -->
+            <div class="collapsible-section">
+                <button class="collapsible-toggle w-full text-left bg-white/5 p-4 rounded-lg border border-cyan-400/20 hover:border-cyan-400/40 transition-all duration-300" onclick="toggleCollapsible(this)">
+                    <div class="flex justify-between items-center">
+                        <span class="font-semibold text-white">💡 查看示例</span>
+                        <span class="transform transition-transform duration-300">▼</span>
                     </div>
-                    <div class="flex items-center bg-gray-900/50 p-3 rounded-lg">
-                        <svg class="w-6 h-6 text-red-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                        <span class="text-sm">我能徒手心算两个大表的JOIN结果。</span>
+                </button>
+                <div class="collapsible-content max-h-0 overflow-hidden transition-all duration-300">
+                    <div class="p-4 bg-white/5 rounded-b-lg">
+                        <div class="space-y-2">
+                            <div class="flex items-center bg-gray-900/50 p-3 rounded-lg">
+                                <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-sm">我曾经因为一个SQL Bug导致全公司报表算错。</span>
+                            </div>
+                            <div class="flex items-center bg-gray-900/50 p-3 rounded-lg">
+                                <svg class="w-5 h-5 text-red-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                <span class="text-sm">我能徒手心算两个大表的JOIN结果。</span>
+                            </div>
+                            <div class="flex items-center bg-gray-900/50 p-3 rounded-lg">
+                                <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-sm">我最喜欢的Excel函数是VLOOKUP。</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex items-center bg-gray-900/50 p-3 rounded-lg">
-                        <svg class="w-6 h-6 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        <span class="text-sm">我最喜欢的Excel函数是VLOOKUP。</span>
-                    </div>
-                 </div>
+                </div>
             </div>
         </div>
     </div>
@@ -155,28 +168,53 @@
                 <button onclick="startTimer(5 * 60, 'timer5')" class="mt-2 px-4 py-1 bg-cyan-500/80 text-white rounded-full text-sm hover:bg-cyan-500 transition">启动计时</button>
             </div>
         </div>
-        <p class="text-cyan-400 font-semibold">方法学习</p>
-        <h4 class="text-2xl font-bold text-white mt-1 mb-4">工具1: 用户旅程图 (User Journey Map)</h4>
-        <p class="text-gray-400 mt-2 text-sm">这是一个"共情"工具，帮助我们站在用户（业务同事）的角度，完整地体验他们使用数据的全过程。</p>
         
-        <div class="mt-4 bg-white/5 p-6 rounded-lg">
-            <h5 class="font-bold text-lg text-white mb-3">为什么用它？</h5>
-            <ul class="list-disc list-inside text-gray-300 space-y-2 text-sm">
-                <li>避免"我们觉得"的盲点，发现真实痛点。</li>
-                <li>系统性地梳理所有用户触点，找到服务断点。</li>
-                <li>为我们刚才提出的问题，提供用户视角的佐证。</li>
-            </ul>
-        </div>
-        
-        <div class="mt-4 bg-white/5 p-6 rounded-lg">
-            <h5 class="font-bold text-lg text-white mb-3">如何操作</h5>
-            <p class="text-gray-400 text-sm mb-3">在白板上画一个表格，横轴是用户使用数据的阶段（如：产生疑问 -> 找数据 -> 分析数据 -> 形成结论 -> 应用决策），纵轴是：</p>
-            <ol class="list-decimal list-inside text-gray-300 space-y-2 text-sm">
-                <li><strong>用户行为 (Actions)</strong>: 他做了什么？</li>
-                <li><strong>想法感受 (Feelings)</strong>: 他在想什么？感觉如何？</li>
-                <li><strong>痛点 (Pain Points)</strong>: 他遇到了什么困难？</li>
-                <li><strong>机会 (Opportunities)</strong>: 我们可以做什么？</li>
-            </ol>
+        <!-- 主要内容 - 简化版 -->
+        <div class="space-y-4">
+            <div>
+                <p class="text-cyan-400 font-semibold">方法学习</p>
+                <h4 class="text-2xl font-bold text-white mt-1">工具1: 用户旅程图 (User Journey Map)</h4>
+                <p class="text-gray-400 mt-2 text-sm">这是一个"共情"工具，帮助我们站在用户（业务同事）的角度，完整地体验他们使用数据的全过程。</p>
+            </div>
+            
+            <!-- 折叠式详细说明 -->
+            <div class="collapsible-section">
+                <button class="collapsible-toggle w-full text-left bg-white/5 p-4 rounded-lg border border-cyan-400/20 hover:border-cyan-400/40 transition-all duration-300" onclick="toggleCollapsible(this)">
+                    <div class="flex justify-between items-center">
+                        <span class="font-semibold text-white">💡 为什么用它？</span>
+                        <span class="transform transition-transform duration-300">▼</span>
+                    </div>
+                </button>
+                <div class="collapsible-content max-h-0 overflow-hidden transition-all duration-300">
+                    <div class="p-4 bg-white/5 rounded-b-lg">
+                        <ul class="list-disc list-inside text-gray-300 space-y-2 text-sm">
+                            <li>避免"我们觉得"的盲点，发现真实痛点。</li>
+                            <li>系统性地梳理所有用户触点，找到服务断点。</li>
+                            <li>为我们刚才提出的问题，提供用户视角的佐证。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="collapsible-section">
+                <button class="collapsible-toggle w-full text-left bg-white/5 p-4 rounded-lg border border-cyan-400/20 hover:border-cyan-400/40 transition-all duration-300" onclick="toggleCollapsible(this)">
+                    <div class="flex justify-between items-center">
+                        <span class="font-semibold text-white">🛠 如何操作</span>
+                        <span class="transform transition-transform duration-300">▼</span>
+                    </div>
+                </button>
+                <div class="collapsible-content max-h-0 overflow-hidden transition-all duration-300">
+                    <div class="p-4 bg-white/5 rounded-b-lg">
+                        <p class="text-gray-400 text-sm mb-3">在白板上画一个表格，横轴是用户使用数据的阶段（如：产生疑问 -> 找数据 -> 分析数据 -> 形成结论 -> 应用决策），纵轴是：</p>
+                        <ol class="list-decimal list-inside text-gray-300 space-y-2 text-sm">
+                            <li><strong>用户行为 (Actions)</strong>: 他做了什么？</li>
+                            <li><strong>想法感受 (Feelings)</strong>: 他在想什么？感觉如何？</li>
+                            <li><strong>痛点 (Pain Points)</strong>: 他遇到了什么困难？</li>
+                            <li><strong>机会 (Opportunities)</strong>: 我们可以做什么？</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -319,30 +357,41 @@
             </div>
         </div>
         <p class="text-gray-400 mt-2 text-sm">从众多想法中，快速识别出"必赢之战"的决策工具。</p>
-        <div class="mt-4 bg-white/5 p-6 rounded-lg">
-            <h5 class="font-bold text-lg text-white mb-3">四象限分析</h5>
-            <div class="relative bg-gray-900/50 p-6 rounded-lg" style="height: 300px;">
-                <!-- 坐标轴 -->
-                <div class="absolute inset-0 flex items-center justify-center">
-                    <div class="w-full h-px bg-gray-600"></div>
+        
+        <!-- 折叠式矩阵图 -->
+        <div class="collapsible-section mt-4">
+            <button class="collapsible-toggle w-full text-left bg-white/5 p-4 rounded-lg border border-cyan-400/20 hover:border-cyan-400/40 transition-all duration-300" onclick="toggleCollapsible(this)">
+                <div class="flex justify-between items-center">
+                    <span class="font-semibold text-white">📊 四象限分析图</span>
+                    <span class="transform transition-transform duration-300">▼</span>
                 </div>
-                <div class="absolute inset-0 flex items-center justify-center">
-                    <div class="h-full w-px bg-gray-600"></div>
+            </button>
+            <div class="collapsible-content max-h-0 overflow-hidden transition-all duration-300">
+                <div class="p-4 bg-white/5 rounded-b-lg">
+                    <div class="relative bg-gray-900/50 p-4 rounded-lg" style="height: 200px;">
+                        <!-- 坐标轴 -->
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-full h-px bg-gray-600"></div>
+                        </div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="h-full w-px bg-gray-600"></div>
+                        </div>
+                        <!-- 轴标签 -->
+                        <div class="absolute top-1 left-1/2 transform -translate-x-1/2 text-xs text-white font-semibold">影响力</div>
+                        <div class="absolute left-1 top-1/2 transform -translate-y-1/2 -rotate-90 text-xs text-white font-semibold">可行性</div>
+                        <!-- 象限标签 -->
+                        <div class="absolute top-2 left-2 text-yellow-400 text-xs font-semibold">战略投入<br/><span class="text-xs">(高影响/低可行)</span></div>
+                        <div class="absolute top-2 right-2 text-green-400 text-xs font-semibold">黄金方案<br/><span class="text-xs">(高影响/高可行)</span></div>
+                        <div class="absolute bottom-2 left-2 text-red-400 text-xs font-semibold">避免<br/><span class="text-xs">(低影响/低可行)</span></div>
+                        <div class="absolute bottom-2 right-2 text-blue-400 text-xs font-semibold">价值有限<br/><span class="text-xs">(低影响/高可行)</span></div>
+                    </div>
                 </div>
-                <!-- 轴标签 -->
-                <div class="absolute top-2 left-1/2 transform -translate-x-1/2 text-sm text-white font-semibold">影响力</div>
-                <div class="absolute left-2 top-1/2 transform -translate-y-1/2 -rotate-90 text-sm text-white font-semibold">可行性</div>
-                <!-- 象限标签 -->
-                <div class="absolute top-4 left-4 text-yellow-400 text-sm font-semibold">战略投入<br/><span class="text-xs">(高影响/低可行)</span></div>
-                <div class="absolute top-4 right-4 text-green-400 text-sm font-semibold">黄金方案<br/><span class="text-xs">(高影响/高可行)</span></div>
-                <div class="absolute bottom-4 left-4 text-red-400 text-sm font-semibold">避免<br/><span class="text-xs">(低影响/低可行)</span></div>
-                <div class="absolute bottom-4 right-4 text-blue-400 text-sm font-semibold">价值有限<br/><span class="text-xs">(低影响/高可行)</span></div>
             </div>
         </div>
         
-        <div class="mt-4 bg-white/5 p-6 rounded-lg">
+        <div class="mt-4 bg-white/5 p-4 rounded-lg">
             <h5 class="font-bold text-lg text-white mb-3">如何操作</h5>
-            <ol class="list-decimal list-inside text-gray-300 space-y-2 text-sm">
+            <ol class="list-decimal list-inside text-gray-300 space-y-1 text-sm">
                 <li>在白板上画出四象限矩阵。</li>
                 <li>评估每个方案的"预期影响力"和"实施可行性"。</li>
                 <li>将方案便利贴放在矩阵的相应位置。</li>
@@ -381,23 +430,25 @@
         <div class="absolute top-4 right-4 md:top-6 md:right-6">
             <p class="text-4xl md:text-5xl animate-in icon-animate pulse-animation" style="animation-delay: 400ms;">🚀</p>
         </div>
-        <div class="flex justify-between items-start pr-16 md:pr-20">
+        <div class="flex justify-between items-start mb-4 pr-16 md:pr-20">
             <div>
                 <p class="text-cyan-400 font-semibold">第五部分 (30分钟)</p>
                 <h3 class="text-3xl font-bold text-white mt-1">定义价值与行动</h3>
-                <p class="text-gray-400 mt-2">目标：将方案转化为可衡量的价值和可执行的计划。</p>
+                <p class="text-gray-400 mt-2 text-sm">目标：将方案转化为可衡量的价值和可执行的计划。</p>
             </div>
             <div id="timer12" class="text-right flex-shrink-0 ml-4">
                 <div class="text-5xl font-bold text-white timer-display">30:00</div>
                 <button onclick="startTimer(30 * 60, 'timer12')" class="mt-2 px-4 py-1 bg-cyan-500/80 text-white rounded-full text-sm hover:bg-cyan-500 transition">启动计时</button>
             </div>
         </div>
-        <div class="mt-4 md:mt-6 grid md:grid-cols-2 gap-4 md:gap-6">
-            <div class="bg-white/5 p-6 rounded-lg">
+        
+        <!-- 简化的活动布局 -->
+        <div class="grid md:grid-cols-2 gap-4">
+            <div class="bg-white/5 p-4 rounded-lg">
                 <h4 class="font-bold text-lg text-white">活动1: 价值记分卡</h4>
                 <p class="text-gray-400 mt-2 text-sm">为"黄金方案"设计衡量成功的标准。</p>
             </div>
-            <div class="bg-white/5 p-6 rounded-lg">
+            <div class="bg-white/5 p-4 rounded-lg">
                 <h4 class="font-bold text-lg text-white">活动2: 认领任务与下一步</h4>
                 <p class="text-gray-400 mt-2 text-sm">把任务落实到人，明确第一步做什么。</p>
             </div>

@@ -207,4 +207,117 @@ footer {
     50% { opacity: 1; transform: scale(1.05); } 
     70% { transform: scale(0.9); } 
     100% { transform: scale(1); } 
+}
+
+/* 折叠功能样式 */
+.collapsible-section {
+    margin: 0.5rem 0;
+}
+
+.collapsible-toggle {
+    cursor: pointer;
+    user-select: none;
+}
+
+.collapsible-toggle:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.collapsible-toggle.active {
+    border-color: rgba(34, 211, 238, 0.6);
+}
+
+.collapsible-content {
+    transition: max-height 0.3s ease-out;
+    border-left: 3px solid rgba(34, 211, 238, 0.3);
+    margin-left: 0.5rem;
+}
+
+/* 更精细的响应式设计 */
+@media (max-height: 800px) {
+    .workshop-step.active {
+        padding: 0.5rem 0;
+    }
+    
+    .glass-card {
+        padding: 1rem !important;
+    }
+    
+    /* 减小字体大小 */
+    .text-3xl { font-size: 1.5rem; }
+    .text-2xl { font-size: 1.25rem; }
+    .text-5xl { font-size: 2rem; }
+    .timer-display { font-size: 2rem !important; }
+}
+
+@media (max-height: 700px) {
+    .workshop-step.active {
+        justify-content: flex-start;
+        padding: 0.25rem 0;
+    }
+    
+    .glass-card {
+        padding: 0.75rem !important;
+    }
+    
+    /* 进一步减小字体 */
+    .text-3xl { font-size: 1.25rem; }
+    .text-2xl { font-size: 1.125rem; }
+    .text-5xl { font-size: 1.5rem; }
+    .timer-display { font-size: 1.5rem !important; }
+    
+    /* 减小间距 */
+    .space-y-4 > * + * { margin-top: 0.5rem; }
+    .space-y-6 > * + * { margin-top: 0.75rem; }
+}
+
+@media (max-height: 600px) {
+    /* 超小屏幕适配 */
+    .workshop-step.active {
+        padding: 0;
+    }
+    
+    .glass-card {
+        padding: 0.5rem !important;
+        margin: 0.25rem 0;
+    }
+    
+    .text-3xl { font-size: 1.125rem; }
+    .text-2xl { font-size: 1rem; }
+    .timer-display { font-size: 1.25rem !important; }
+    
+    /* 隐藏装饰性图标以节省空间 */
+    .icon-animate {
+        display: none;
+    }
+}
+
+/* 内容自适应滚动 */
+.workshop-step {
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+.workshop-step.active {
+    max-height: calc(100vh - 140px); /* 减去header和footer的高度 */
+}
+
+/* 滚动条样式 */
+.workshop-step::-webkit-scrollbar {
+    width: 6px;
+}
+
+.workshop-step::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.workshop-step::-webkit-scrollbar-thumb {
+    background: rgba(34, 211, 238, 0.5);
+    border-radius: 3px;
+}
+
+.workshop-step::-webkit-scrollbar-thumb:hover {
+    background: rgba(34, 211, 238, 0.8);
 } 

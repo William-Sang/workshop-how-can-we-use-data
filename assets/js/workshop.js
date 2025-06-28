@@ -314,4 +314,23 @@ function goToStep(stepIndex) {
 window.startTimer = startTimer;
 window.resetTimer = resetTimer;
 window.getCurrentStepInfo = getCurrentStepInfo;
-window.goToStep = goToStep; 
+window.goToStep = goToStep;
+window.toggleCollapsible = toggleCollapsible;
+
+// 折叠功能
+function toggleCollapsible(button) {
+    const content = button.nextElementSibling;
+    const arrow = button.querySelector('span:last-child');
+    
+    if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+        // 关闭
+        content.style.maxHeight = '0px';
+        arrow.style.transform = 'rotate(0deg)';
+        button.classList.remove('active');
+    } else {
+        // 打开
+        content.style.maxHeight = content.scrollHeight + 'px';
+        arrow.style.transform = 'rotate(180deg)';
+        button.classList.add('active');
+    }
+} 
