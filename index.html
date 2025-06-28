@@ -500,15 +500,39 @@
                     <p class="text-5xl mt-4 animate-in icon-animate pulse-animation" style="animation-delay: 400ms;">📊</p>
                     <p class="text-gray-400 mt-2">从众多想法中，快速识别出"必赢之战"的决策工具。</p>
                     <div class="mt-8 grid md:grid-cols-2 gap-8 items-center">
-                        <div class="bg-white/5 p-6 rounded-lg h-full flex flex-col justify-center">
-                            <h4 class="font-bold text-lg text-white mb-4 text-center">四象限分析</h4>
-                            <div class="w-full aspect-square bg-gray-900/50 grid grid-cols-2 grid-rows-2 gap-1 p-1 rounded-lg">
-                                <div class="bg-green-800/30 rounded-tl-md flex flex-col justify-center items-center p-2 text-center"><span class="font-bold text-green-300">战略投入</span><span class="text-xs text-gray-300">(高影响/低可行)</span></div>
-                                <div class="bg-cyan-700/50 rounded-tr-md flex flex-col justify-center items-center p-2 text-center border-2 border-cyan-400"><span class="font-bold text-cyan-200 text-lg">黄金方案</span><span class="text-xs text-gray-200">(高影响/高可行)</span></div>
-                                <div class="bg-gray-700/30 rounded-bl-md flex flex-col justify-center items-center p-2 text-center"><span class="font-bold text-gray-300">避免</span><span class="text-xs text-gray-400">(低影响/低可行)</span></div>
-                                <div class="bg-blue-800/30 rounded-br-md flex flex-col justify-center items-center p-2 text-center"><span class="font-bold text-blue-300">价值有限</span><span class="text-xs text-gray-300">(低影响/高可行)</span></div>
+                        <div class="bg-white/5 p-6 rounded-lg h-full flex flex-col justify-center items-center">
+                            <h4 class="font-bold text-lg text-white mb-8 text-center">四象限分析</h4>
+                            <div class="w-full max-w-md aspect-square relative">
+                                <!-- Y-axis Label -->
+                                <div class="absolute -left-12 top-1/2 -translate-y-1/2 transform -rotate-90 text-sm text-gray-300 flex items-center">
+                                    <span>影响力</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 transform rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19V5m-7 7l7-7 7 7"></path></svg>
+                                </div>
+                                <!-- X-axis Label -->
+                                <div class="absolute -bottom-8 left-1/2 -translate-x-1/2 text-sm text-gray-300 flex items-center">
+                                    <span>可行性</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                </div>
+
+                                <div class="w-full h-full bg-white/20 grid grid-cols-2 grid-rows-2 gap-px p-px rounded-lg">
+                                    <div class="bg-gray-900 rounded-tl-md flex flex-col justify-center items-center p-2 text-center">
+                                        <span class="font-bold text-green-300">战略投入</span>
+                                        <span class="text-xs text-gray-300 mt-1">(高影响/低可行)</span>
+                                    </div>
+                                    <div class="bg-gray-900 rounded-tr-md flex flex-col justify-center items-center p-2 text-center border-2 border-cyan-400 shadow-lg shadow-cyan-500/20">
+                                        <span class="font-bold text-cyan-200 text-lg">黄金方案</span>
+                                        <span class="text-xs text-gray-200 mt-1">(高影响/高可行)</span>
+                                    </div>
+                                    <div class="bg-gray-900 rounded-bl-md flex flex-col justify-center items-center p-2 text-center">
+                                        <span class="font-bold text-gray-300">避免</span>
+                                        <span class="text-xs text-gray-400 mt-1">(低影响/低可行)</span>
+                                    </div>
+                                    <div class="bg-gray-900 rounded-br-md flex flex-col justify-center items-center p-2 text-center">
+                                        <span class="font-bold text-blue-300">价值有限</span>
+                                        <span class="text-xs text-gray-300 mt-1">(低影响/高可行)</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="flex justify-between text-xs text-gray-400 mt-1"><span>&larr; 可行性 &rarr;</span><span>&uarr; 影响力 &darr;</span></div>
                         </div>
                         <div class="bg-white/5 p-6 rounded-lg h-full">
                             <h4 class="font-bold text-lg text-white">如何操作</h4>
