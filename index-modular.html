@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>引爆数据价值：共创工作坊引导页 (专业版)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- 引入自定义样式 -->
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body class="text-gray-200 flex flex-col min-h-screen">
+    <!-- 背景组件 -->
+    <div id="background-placeholder"></div>
+
+    <div class="relative z-10 flex flex-col min-h-screen">
+        <!-- 头部组件 -->
+        <div id="header-placeholder"></div>
+
+        <!-- 主要内容 -->
+        <main class="container mx-auto px-6 flex-grow flex flex-col">
+            <!-- 欢迎页面 -->
+            <div id="welcome-step-placeholder"></div>
+            
+            <!-- 工作坊步骤 -->
+            <div id="workshop-steps-placeholder"></div>
+            
+            <!-- 结论页面 -->
+            <div id="conclusion-step-placeholder"></div>
+        </main>
+
+        <!-- 底部组件 -->
+        <div id="footer-placeholder"></div>
+    </div>
+
+    <!-- 引入主要的JavaScript功能 -->
+    <script src="assets/js/workshop.js"></script>
+    
+    <!-- 组件加载脚本 -->
+    <script>
+        // 组件加载器
+        async function loadComponent(elementId, componentPath) {
+            try {
+                const response = await fetch(componentPath);
+                const html = await response.text();
+                document.getElementById(elementId).innerHTML = html;
+            } catch (error) {
+                console.error(`Failed to load component ${componentPath}:`, error);
+            }
+        }
+
+        // 加载所有组件
+        async function loadAllComponents() {
+            const components = [
+                { id: 'background-placeholder', path: 'components/background.html' },
+                { id: 'header-placeholder', path: 'components/header.html' },
+                { id: 'welcome-step-placeholder', path: 'components/steps/step-welcome.html' },
+                { id: 'workshop-steps-placeholder', path: 'components/workshop-steps.html' },
+                { id: 'conclusion-step-placeholder', path: 'components/steps/step-conclusion.html' },
+                { id: 'footer-placeholder', path: 'components/footer.html' }
+            ];
+
+            // 并行加载所有组件
+            await Promise.all(
+                components.map(component => 
+                    loadComponent(component.id, component.path)
+                )
+            );
+            
+            console.log('所有组件加载完成');
+        }
+
+        // 页面加载完成后加载组件
+        document.addEventListener('DOMContentLoaded', loadAllComponents);
+    </script>
+</body>
+</html> 

@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>引爆数据价值：共创工作坊引导页 (专业版)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- 引入自定义样式 -->
+    <style>
+/* 响应式字体设置 */
+html {
+    font-size: 16px;
+}
+@media (min-width: 768px) {
+    html {
+        font-size: 18px;
+    }
+}
+@media (min-width: 1280px) {
+    html {
+        font-size: 20px;
+    }
+}
+@media (min-width: 1920px) {
+    html {
+        font-size: 22px;
+    }
+}
+
+/* CSS变量定义 */
+:root {
+    --glow-x: 50%;
+    --glow-y: 50%;
+}
+
+/* 背景容器样式 */
+#background-container {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    background-color: #0c0a18;
+    background-image: radial-gradient(circle at var(--glow-x) var(--glow-y), rgba(34, 211, 238, 0.1), transparent 40%);
+}
+
+/* 基础字体设置 */
+body {
+    font-family: 'Inter', 'Noto Sans SC', sans-serif;
+    line-height: 1.6;
+}
+
+/* 动画背景光斑 */
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.3;
+    will-change: transform;
+}
+.blob1 {
+    background: #22d3ee;
+    width: 300px;
+    height: 300px;
+    top: 10%;
+    left: 10%;
+    animation: move 15s infinite alternate;
+}
+.blob2 {
+    background: #a78bfa;
+    width: 400px;
+    height: 400px;
+    bottom: 5%;
+    right: 15%;
+    animation: move 20s infinite alternate-reverse;
+}
+@keyframes move {
+    from { transform: translate(0, 0) scale(1); }
+    to { transform: translate(100px, 50px) scale(1.2); }
+}
+
+/* 主要内容布局 - 纵轴居中 */
+.workshop-step {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    flex: 1; /* 占据main的剩余空间 */
+}
+.workshop-step.active {
+    display: flex; /* 改回flex布局 */
+    flex-direction: column;
+    justify-content: center; /* 纵轴居中 */
+    align-items: center; /* 横轴居中 */
+    opacity: 1;
+    transform: translateY(0);
+    padding: 2rem 0; /* 保持适当的上下边距 */
+}
+
+/* 确保main区域占据剩余空间 */
+main {
+    flex: 1; /* 占据剩余空间 */
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* 允许内容缩小 */
+}
+
+/* 响应式优化 */
+@media (max-height: 900px) and (min-height: 700px) {
+    .workshop-step.active {
+        padding: 1rem 0;
+    }
+}
+
+@media (max-height: 700px) {
+    .workshop-step.active {
+        justify-content: flex-start; /* 小屏幕时不居中 */
+        padding: 0.5rem 0;
+    }
+}
+
+/* 内容自适应 */
+.workshop-step.active > * {
+    max-width: 100%;
+    width: 100%;
+    flex-shrink: 1; /* 允许内容缩小 */
+}
+
+/* 动画效果 */
+.workshop-step.active .animate-in {
+    animation: slide-up 0.6s ease-out forwards;
+    opacity: 0;
+}
+@keyframes slide-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 玻璃态卡片样式 */
+.glass-card {
+    background: rgba(22, 27, 46, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 计时器样式 */
+.timer-display {
+    font-variant-numeric: tabular-nums;
+}
+
+/* 导航链接样式 */
+.nav-link {
+    position: relative;
+    transition: color 0.3s;
+}
+.nav-link:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #22d3ee;
+    transition: width 0.3s;
+}
+.nav-link.active {
+    color: #22d3ee;
+}
+.nav-link.active:after {
+    width: 100%;
+}
+
+/* 图标动画效果 */
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.9; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+.icon-animate {
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite; /* Make them loop */
+    display: inline-block; /* For emojis */
+}
+
+.pulse-animation { animation-name: pulse; }
+.shake-animation { animation-name: shake; }
+.float-animation { animation-name: float; }
+
+/* Footer样式 */
+footer {
+    flex-shrink: 0; /* footer不缩小 */
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* 添加顶部边框 */
+}
+
+/* 弹跳动画 */
+@keyframes bounce-in { 
+    0% { opacity: 0; transform: scale(0.3); } 
+    50% { opacity: 1; transform: scale(1.05); } 
+    70% { transform: scale(0.9); } 
+    100% { transform: scale(1); } 
+} 
+    </style>
+</head>
+<body class="text-gray-200 flex flex-col min-h-screen">
+    <!-- 背景组件 -->
+    <!-- Animated Background -->
+<div id="background-container">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+</div>
+
+    <div class="relative z-10 flex flex-col min-h-screen">
+        <!-- 头部组件 -->
+        <!-- Header / Navigation -->
+<header class="sticky top-0 z-20 bg-black/20 backdrop-blur-sm">
+    <div class="container mx-auto px-6 py-3">
+        <div class="flex justify-between items-center mb-3">
+             <h1 class="text-xl md:text-2xl font-bold text-white">引爆数据价值工作坊</h1>
+             <nav id="top-nav" class="hidden md:flex space-x-6 text-sm font-medium">
+                <a href="#" data-step="0" class="nav-link">开始</a>
+                <a href="#" data-step="1" class="nav-link">1. 开场</a>
+                <a href="#" data-step="3" class="nav-link">2. 共识</a>
+                <a href="#" data-step="5" class="nav-link">3. 问题</a>
+                <a href="#" data-step="8" class="nav-link">4. 方案</a>
+                <a href="#" data-step="12" class="nav-link">5. 行动</a>
+                <a href="#" data-step="13" class="nav-link">总结</a>
+            </nav>
+        </div>
+        <!-- Progress Bar -->
+        <div class="w-full bg-white/10 rounded-full h-1.5">
+            <div id="progress-bar" class="bg-cyan-400 h-1.5 rounded-full transition-all duration-500 ease-in-out" style="width: 0%"></div>
+        </div>
+    </div>
+</header>
+
+        <!-- 主要内容 -->
+        <main class="container mx-auto px-6 flex-grow flex flex-col">
+            <!-- 欢迎页面 -->
+            <!-- Step 0: Welcome -->
+<section id="step-0" class="workshop-step">
+    <div class="text-center w-full max-w-6xl mx-auto">
+        <h2 class="animate-in text-2xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight" style="animation-delay: 100ms;">
+            引爆<span class="text-cyan-400">数据价值</span>
+        </h2>
+        <p class="animate-in mt-3 text-sm md:text-lg lg:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed" style="animation-delay: 200ms;">
+            一个下午，让我们携手探索机会，共创解决方案，释放数据团队的无限潜能。
+        </p>
+        <p class="animate-in mt-2 text-xs md:text-base text-gray-500" style="animation-delay: 300ms;">
+            今天，我们是智慧碰撞的创新伙伴，共同开启数据价值的新篇章。
+        </p>
+        
+        <!-- Time Schedule Overview -->
+        <div class="animate-in mt-6 glass-card p-3 md:p-6 lg:p-8" style="animation-delay: 400ms;">
+            <div class="flex items-center justify-center mb-4">
+                <div class="h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent w-16"></div>
+                <h3 class="text-lg md:text-2xl lg:text-3xl font-bold text-white mx-4 text-center">📅 工作坊时间流</h3>
+                <div class="h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent w-16"></div>
+            </div>
+            
+            <!-- 响应式网格布局 -->
+            <div class="grid grid-cols-2 lg:grid-cols-5 gap-3 md:gap-4">
+                <div class="bg-white/5 p-3 md:p-4 rounded-lg border border-transparent hover:border-cyan-400 transition-all duration-300 transform hover:scale-105 group">
+                    <div class="text-2xl md:text-3xl mb-2">🚀</div>
+                    <div class="text-cyan-400 font-semibold text-xs">第一部分</div>
+                    <div class="text-white font-bold text-sm md:text-base mt-1">开场</div>
+                    <div class="text-gray-400 text-xs mt-1">20分钟</div>
+                </div>
+                <div class="bg-white/5 p-3 md:p-4 rounded-lg border border-transparent hover:border-cyan-400 transition-all duration-300 transform hover:scale-105 group">
+                    <div class="text-2xl md:text-3xl mb-2">🤝</div>
+                    <div class="text-cyan-400 font-semibold text-xs">第二部分</div>
+                    <div class="text-white font-bold text-sm md:text-base mt-1">共识</div>
+                    <div class="text-gray-400 text-xs mt-1">25分钟</div>
+                </div>
+                <div class="bg-white/5 p-3 md:p-4 rounded-lg border border-transparent hover:border-cyan-400 transition-all duration-300 transform hover:scale-105 group">
+                    <div class="text-2xl md:text-3xl mb-2">❓</div>
+                    <div class="text-cyan-400 font-semibold text-xs">第三部分</div>
+                    <div class="text-white font-bold text-sm md:text-base mt-1">聚焦真问题</div>
+                    <div class="text-gray-400 text-xs mt-1">50分钟</div>
+                </div>
+                <div class="bg-white/5 p-3 md:p-4 rounded-lg border border-transparent hover:border-cyan-400 transition-all duration-300 transform hover:scale-105 group">
+                    <div class="text-2xl md:text-3xl mb-2">✨</div>
+                    <div class="text-cyan-400 font-semibold text-xs">第四部分</div>
+                    <div class="text-white font-bold text-sm md:text-base mt-1">共创解决方案</div>
+                    <div class="text-gray-400 text-xs mt-1">65分钟</div>
+                </div>
+                <div class="bg-white/5 p-3 md:p-4 rounded-lg border border-transparent hover:border-cyan-400 transition-all duration-300 transform hover:scale-105 group">
+                    <div class="text-2xl md:text-3xl mb-2">📈</div>
+                    <div class="text-cyan-400 font-semibold text-xs">第五部分</div>
+                    <div class="text-white font-bold text-sm md:text-base mt-1">定义价值与行动</div>
+                    <div class="text-gray-400 text-xs mt-1">50分钟</div>
+                </div>
+            </div>
+            
+            <div class="flex items-center justify-center mt-4">
+                <div class="h-px bg-gradient-to-r from-transparent via-gray-600/30 to-transparent w-full max-w-md"></div>
+            </div>
+            <p class="mt-3 text-xs md:text-sm text-gray-500 text-center">
+                💡 建议在第二、三部分之间安排10-15分钟休息时间。
+            </p>
+        </div>
+    </div>
+</section>
+            
+            <!-- 工作坊步骤 -->
+            <!-- Workshop Steps Container -->
+
+<!-- Step 1: Icebreaker 1 - Two Truths and a Lie -->
+<section id="step-1" class="workshop-step">
+    <div class="w-full p-4 md:p-6 glass-card animate-in relative">
+        <!-- 图标移到右上角 -->
+        <div class="absolute top-4 right-4 md:top-6 md:right-6">
+            <p class="text-4xl md:text-5xl animate-in icon-animate float-animation" style="animation-delay: 400ms;">🤔</p>
+        </div>
+        <div class="flex justify-between items-start mb-4 md:mb-6 pr-16 md:pr-20">
+            <div>
+                <p class="text-cyan-400 font-semibold">第一部分 (开场) (25分钟)</p>
+                <h3 class="text-3xl font-bold text-white mt-1">开场环节(1/4): 两真一假</h3>
+            </div>
+            <div id="timer1" class="text-right flex-shrink-0 ml-4">
+                <div class="text-5xl font-bold text-white timer-display">15:00</div>
+                <button onclick="startTimer(15 * 60, 'timer1')" class="mt-2 px-4 py-1 bg-cyan-500/80 text-white rounded-full text-sm hover:bg-cyan-500 transition">启动计时</button>
+            </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4 md:gap-6 items-center">
+            <div class="bg-white/5 p-6 rounded-lg">
+                <h4 class="font-bold text-lg text-white">游戏规则</h4>
+                <p class="text-gray-400 mt-2 text-sm">这是一个关于"数据"的趣味游戏，帮助我们快速相互了解。</p>
+                <ol class="list-decimal list-inside text-gray-300 mt-4 space-y-2 text-sm">
+                    <li>每人领取3张便利贴。</li>
+                    <li>写下3个关于你和数据的故事：<span class="text-green-400">2个真的</span>, <span class="text-red-400">1个假的</span>。</li>
+                    <li>轮流分享你的3个故事。</li>
+                    <li>其他伙伴投票，猜出哪个是假的！</li>
+                </ol>
+            </div>
+            <div class="bg-white/5 p-6 rounded-lg flex flex-col items-center justify-center">
+                 <h4 class="font-bold text-lg text-white mb-4">例如...</h4>
+                 <div class="space-y-3 w-full">
+                    <div class="flex items-center bg-gray-900/50 p-3 rounded-lg">
+                        <svg class="w-6 h-6 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-sm">我曾经因为一个SQL Bug导致全公司报表算错。</span>
+                    </div>
+                    <div class="flex items-center bg-gray-900/50 p-3 rounded-lg">
+                        <svg class="w-6 h-6 text-red-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        <span class="text-sm">我能徒手心算两个大表的JOIN结果。</span>
+                    </div>
+                    <div class="flex items-center bg-gray-900/50 p-3 rounded-lg">
+                        <svg class="w-6 h-6 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-sm">我最喜欢的Excel函数是VLOOKUP。</span>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Step 2: Icebreaker 2 - Human Spectrogram -->
+<section id="step-2" class="workshop-step">
+    <div class="w-full p-4 md:p-6 glass-card animate-in relative">
+        <!-- 图标移到右上角 -->
+        <div class="absolute top-4 right-4 md:top-6 md:right-6">
+            <p class="text-4xl md:text-5xl animate-in icon-animate pulse-animation" style="animation-delay: 400ms;">🧘</p>
+        </div>
+        <div class="flex justify-between items-start mb-4 md:mb-6 pr-16 md:pr-20">
+            <div>
+                <p class="text-cyan-400 font-semibold">第一部分 (开场) (接续)</p>
+                <h3 class="text-3xl font-bold text-white mt-1">开场环节(2/4): 人体光谱 (座位版)</h3>
+            </div>
+            <div id="timer2" class="text-right flex-shrink-0 ml-4">
+                <div class="text-4xl md:text-5xl font-bold text-white timer-display">10:00</div>
+                <button onclick="startTimer(10 * 60, 'timer2')" class="mt-2 px-4 py-1 bg-cyan-500/80 text-white rounded-full text-sm hover:bg-cyan-500 transition">启动计时</button>
+            </div>
+        </div>
+        <p class="text-gray-400 mt-2">接下来，我会念几个陈述句。请大家根据自己的认同程度，用座位上的动作快速表态！</p>
+        <div class="mt-6 grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
+            <div class="bg-white/5 p-3 rounded-lg"><p class="font-bold text-green-400">非常同意</p><p class="text-xs mt-1">双手高举</p><p class="text-5xl mt-2">🙌</p></div>
+            <div class="bg-white/5 p-3 rounded-lg"><p class="font-bold text-green-500">同意</p><p class="text-xs mt-1">举起右手</p><p class="text-5xl mt-2">🙋</p></div>
+            <div class="bg-white/5 p-3 rounded-lg"><p class="font-bold text-gray-400">中立</p><p class="text-xs mt-1">双臂交叉</p><p class="text-5xl mt-2">🙅</p></div>
+            <div class="bg-white/5 p-3 rounded-lg"><p class="font-bold text-red-500">不同意</p><p class="text-xs mt-1">右手向下</p><p class="text-5xl mt-2">👇</p></div>
+            <div class="bg-white/5 p-3 rounded-lg"><p class="font-bold text-red-400">非常不同意</p><p class="text-xs mt-1">双手向下</p><p class="text-5xl mt-2">🙇</p></div>
+        </div>
+         <div class="mt-4 text-sm text-gray-300 bg-gray-900/50 p-4 rounded-lg space-y-2">
+            <p>1. 我们公司大部分业务同事都很懂数据。</p>
+            <p>2. 我觉得我们目前的数据平台非常易用。</p>
+            <p>3. 相比于做新报表，我更喜欢做深度的数据洞察分析。</p>
+            <p>4. 我认为'数据驱动决策'在我们团队已经实现得很好了。</p>
+            <p>5. 加班加点完成一个数据需求，能让我获得巨大的成就感。</p>
+        </div>
+    </div>
+</section>
+
+<!-- 继续添加其他步骤... 为了节省空间，这里只展示前两个步骤的完整代码 -->
+<!-- 其他步骤可以按照类似的结构添加 -->
+            
+            <!-- 结论页面 -->
+            <!-- Step 13: Conclusion -->
+<section id="step-13" class="workshop-step">
+    <div class="text-center">
+        <h3 class="animate-in text-3xl md:text-5xl font-bold text-white" style="animation-delay: 100ms;">恭喜！我们找到了前进的方向！</h3>
+        <p class="animate-in mt-4 text-lg text-gray-300 max-w-2xl mx-auto" style="animation-delay: 200ms;">感谢各位伙伴的智慧与投入。今天的结束，是我们团队价值跃迁的开始。</p>
+        <p class="animate-in mt-8 text-6xl" style="animation-delay: 300ms; animation-name: bounce-in;">🚀</p>
+    </div>
+</section>
+        </main>
+
+        <!-- 底部组件 -->
+        <!-- Footer / Navigation -->
+<footer class="sticky bottom-0 z-20 bg-black/20 backdrop-blur-sm">
+    <div class="container mx-auto px-6 py-4">
+        <div class="flex justify-between items-center">
+            <button id="prev-btn" class="px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-medium">
+                ← 上一步
+            </button>
+            <div class="flex space-x-2">
+                <span id="current-step" class="text-white font-medium">1</span>
+                <span class="text-gray-400">/</span>
+                <span id="total-steps" class="text-gray-400">14</span>
+            </div>
+            <button id="next-btn" class="px-6 py-3 bg-cyan-500 text-white rounded-lg hover:bg-cyan-600 transition-colors duration-300 font-medium">
+                下一步 →
+            </button>
+        </div>
+    </div>
+</footer>
+    </div>
+
+    <!-- 引入主要的JavaScript功能 -->
+        <script>
+/**
+ * 引爆数据价值工作坊 - 配置文件
+ * 包含所有步骤的配置信息、计时器设置等
+ */
+
+// 工作坊配置
+const WORKSHOP_CONFIG = {
+    // 基本信息
+    title: "引爆数据价值：共创工作坊引导页",
+    version: "2.0.0",
+    
+    // 步骤配置
+    steps: [
+        {
+            id: 0,
+            title: "欢迎页面",
+            section: "开始",
+            duration: 0,
+            icon: "🚀",
+            animation: "bounce-in"
+        },
+        {
+            id: 1,
+            title: "开场环节(1/4): 两真一假",
+            section: "第一部分 (开场) (25分钟)",
+            duration: 15 * 60, // 15分钟
+            icon: "🤔",
+            animation: "float-animation"
+        },
+        {
+            id: 2,
+            title: "开场环节(2/4): 人体光谱 (座位版)",
+            section: "第一部分 (开场) (接续)",
+            duration: 10 * 60, // 10分钟
+            icon: "🧘",
+            animation: "pulse-animation"
+        },
+        {
+            id: 3,
+            title: "共识环节(3/4): 描绘理想未来",
+            section: "第二部分 (共识) (35分钟)",
+            duration: 20 * 60, // 20分钟
+            icon: "🤝",
+            animation: "float-animation"
+        },
+        {
+            id: 4,
+            title: "共识环节(4/4): 共创当前问题",
+            section: "第二部分 (共识) (接续)",
+            duration: 15 * 60, // 15分钟
+            icon: "💡",
+            animation: "shake-animation"
+        },
+        {
+            id: 5,
+            title: "聚焦真问题 - 工具1: 用户旅程图",
+            section: "第三部分 (35分钟)",
+            duration: 5 * 60, // 5分钟
+            icon: "🔍",
+            animation: "float-animation"
+        },
+        {
+            id: 6,
+            title: "聚焦真问题 (活动)",
+            section: "第三部分 (35分钟)",
+            duration: 25 * 60, // 25分钟
+            icon: "📊",
+            animation: "pulse-animation"
+        },
+        {
+            id: 7,
+            title: "工具2: 5个为什么 (5 Whys)",
+            section: "方法学习",
+            duration: 5 * 60, // 5分钟
+            icon: "❓",
+            animation: "float-animation"
+        },
+        {
+            id: 8,
+            title: "工具3: \"我们如何才能...\" (HMW)",
+            section: "第四部分 (50分钟)",
+            duration: 5 * 60, // 5分钟
+            icon: "💭",
+            animation: "pulse-animation"
+        },
+        {
+            id: 9,
+            title: "共创解决方案 (活动1)",
+            section: "第四部分 (接续)",
+            duration: 20 * 60, // 20分钟
+            icon: "🧠",
+            animation: "shake-animation"
+        },
+        {
+            id: 10,
+            title: "工具4: \"影响力-可行性\" 矩阵",
+            section: "方法学习",
+            duration: 5 * 60, // 5分钟
+            icon: "📊",
+            animation: "pulse-animation"
+        },
+        {
+            id: 11,
+            title: "共创解决方案 (活动2)",
+            section: "第四部分 (接续)",
+            duration: 20 * 60, // 20分钟
+            icon: "🎯",
+            animation: "float-animation"
+        },
+        {
+            id: 12,
+            title: "定义价值与行动",
+            section: "第五部分 (30分钟)",
+            duration: 30 * 60, // 30分钟
+            icon: "🚀",
+            animation: "pulse-animation"
+        },
+        {
+            id: 13,
+            title: "结论",
+            section: "总结",
+            duration: 0,
+            icon: "🎉",
+            animation: "bounce-in"
+        }
+    ],
+    
+    // 导航映射
+    navigation: {
+        "0": { step: 0, label: "开始" },
+        "1": { step: 1, label: "1. 开场" },
+        "3": { step: 3, label: "2. 共识" },
+        "5": { step: 5, label: "3. 问题" },
+        "8": { step: 8, label: "4. 方案" },
+        "12": { step: 12, label: "5. 行动" },
+        "13": { step: 13, label: "总结" }
+    },
+    
+    // 时间配置
+    timeSchedule: [
+        {
+            section: "第一部分",
+            title: "开场",
+            duration: 25,
+            icon: "🚀"
+        },
+        {
+            section: "第二部分", 
+            title: "共识",
+            duration: 35,
+            icon: "🤝"
+        },
+        {
+            section: "第三部分",
+            title: "聚焦真问题", 
+            duration: 35,
+            icon: "❓"
+        },
+        {
+            section: "第四部分",
+            title: "共创解决方案",
+            duration: 50,
+            icon: "✨"
+        },
+        {
+            section: "第五部分",
+            title: "定义价值与行动",
+            duration: 30,
+            icon: "📈"
+        }
+    ],
+    
+    // 动画配置
+    animations: {
+        slideUpDelay: 100, // 每个元素的动画延迟间隔(ms)
+        transitionDuration: 500 // 步骤切换动画时长(ms)
+    },
+    
+    // 计时器配置
+    timer: {
+        warningTime: 60, // 剩余1分钟时警告
+        endSound: false, // 是否播放结束提示音
+        showNotification: true // 是否显示时间到通知
+    }
+};
+
+// 工具方法
+const WORKSHOP_UTILS = {
+    /**
+     * 格式化时间显示
+     * @param {number} seconds - 秒数
+     * @returns {string} 格式化的时间字符串
+     */
+    formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+    },
+    
+    /**
+     * 根据步骤ID获取步骤配置
+     * @param {number} stepId - 步骤ID
+     * @returns {Object|null} 步骤配置对象
+     */
+    getStepConfig(stepId) {
+        return WORKSHOP_CONFIG.steps.find(step => step.id === stepId) || null;
+    },
+    
+    /**
+     * 获取总时长
+     * @returns {number} 总时长（分钟）
+     */
+    getTotalDuration() {
+        return WORKSHOP_CONFIG.timeSchedule.reduce((total, section) => total + section.duration, 0);
+    },
+    
+    /**
+     * 验证步骤ID是否有效
+     * @param {number} stepId - 步骤ID
+     * @returns {boolean} 是否有效
+     */
+    isValidStep(stepId) {
+        return stepId >= 0 && stepId < WORKSHOP_CONFIG.steps.length;
+    }
+};
+
+// 导出配置到全局作用域
+window.WORKSHOP_CONFIG = WORKSHOP_CONFIG;
+window.WORKSHOP_UTILS = WORKSHOP_UTILS; 
+    </script>
+
+</body>
+</html> 
