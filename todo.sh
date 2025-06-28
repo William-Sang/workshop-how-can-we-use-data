@@ -62,8 +62,32 @@ format_id() {
 
 # 更新统计信息
 update_statistics() {
-    local total_todos=$(grep -c "^#### ❌ TODO-" "$TODO_FILE" || echo 0)
-    local total_done=$(grep -c "^#### ✅ DONE-" "$TODO_FILE" || echo 0)
+    # 使用awk精确统计，排除HTML注释和代码块中的任务
+    local stats=$(awk '
+    BEGIN { 
+        in_comment=0; in_code=0; todos=0; dones=0 
+    }
+    /^<!--/ { 
+        in_comment=1; next 
+    }
+    /-->/ { 
+        in_comment=0; next 
+    }
+    /^```/ { 
+        in_code = !in_code; next 
+    }
+    !in_comment && !in_code && /^#### ❌ TODO-[0-9]{3}:/ { 
+        todos++ 
+    }
+    !in_comment && !in_code && /^#### ✅ DONE-[0-9]{3}:/ { 
+        dones++ 
+    }
+    END { 
+        print todos " " dones
+    }' "$TODO_FILE")
+    
+    local total_todos=$(echo $stats | cut -d' ' -f1)
+    local total_done=$(echo $stats | cut -d' ' -f2)
     local total_tasks=$((total_todos + total_done))
     local progress=0
     
@@ -328,8 +352,32 @@ complete_task() {
 
 # 显示统计信息
 show_stats() {
-    local total_todos=$(grep -c "^#### ❌ TODO-" "$TODO_FILE" 2>/dev/null || echo 0)
-    local total_done=$(grep -c "^#### ✅ DONE-" "$TODO_FILE" 2>/dev/null || echo 0)
+    # 使用awk精确统计，排除HTML注释和代码块中的任务
+    local stats=$(awk '
+    BEGIN { 
+        in_comment=0; in_code=0; todos=0; dones=0 
+    }
+    /^<!--/ { 
+        in_comment=1; next 
+    }
+    /-->/ { 
+        in_comment=0; next 
+    }
+    /^```/ { 
+        in_code = !in_code; next 
+    }
+    !in_comment && !in_code && /^#### ❌ TODO-[0-9]{3}:/ { 
+        todos++ 
+    }
+    !in_comment && !in_code && /^#### ✅ DONE-[0-9]{3}:/ { 
+        dones++ 
+    }
+    END { 
+        print todos " " dones
+    }' "$TODO_FILE")
+    
+    local total_todos=$(echo $stats | cut -d' ' -f1)
+    local total_done=$(echo $stats | cut -d' ' -f2)
     local total_tasks=$((total_todos + total_done))
     local progress=0
     
