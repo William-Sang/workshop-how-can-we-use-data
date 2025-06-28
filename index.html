@@ -10,21 +10,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         html {
-            font-size: 14px;
+            font-size: 16px;
         }
         @media (min-width: 768px) {
             html {
-                font-size: 15px;
+                font-size: 18px;
             }
         }
         @media (min-width: 1280px) {
             html {
-                font-size: 16px;
+                font-size: 20px;
             }
         }
         @media (min-width: 1920px) {
             html {
-                font-size: 17px;
+                font-size: 22px;
             }
         }
         :root {
@@ -43,6 +43,7 @@
 
         body {
             font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            line-height: 1.6;
         }
 
         /* Animated Blobs Background */
@@ -74,21 +75,52 @@
             to { transform: translate(100px, 50px) scale(1.2); }
         }
 
-        /* Main Content Styling */
+        /* Main Content Styling - 纵轴居中布局 */
         .workshop-step {
             display: none;
-            align-items: center;
-            min-height: 100vh;
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            flex: 1; /* 占据main的剩余空间 */
         }
         .workshop-step.active {
-            display: flex;
+            display: flex; /* 改回flex布局 */
             flex-direction: column;
-            justify-content: center;
+            justify-content: center; /* 纵轴居中 */
+            align-items: center; /* 横轴居中 */
             opacity: 1;
             transform: translateY(0);
+            padding: 2rem 0; /* 保持适当的上下边距 */
+        }
+
+        /* 确保main区域占据剩余空间 */
+        main {
+            flex: 1; /* 占据剩余空间 */
+            display: flex;
+            flex-direction: column;
+            min-height: 0; /* 允许内容缩小 */
+        }
+
+        /* 在中等屏幕高度时的优化 */
+        @media (max-height: 900px) and (min-height: 700px) {
+            .workshop-step.active {
+                padding: 1rem 0;
+            }
+        }
+
+        /* 在小屏幕或内容过多时允许滚动 */
+        @media (max-height: 700px) {
+            .workshop-step.active {
+                justify-content: flex-start; /* 小屏幕时不居中 */
+                padding: 0.5rem 0;
+            }
+        }
+
+        /* 当内容高度超过视窗时，自动调整 */
+        .workshop-step.active > * {
+            max-width: 100%;
+            width: 100%;
+            flex-shrink: 1; /* 允许内容缩小 */
         }
 
         /* Staggered Animation for child elements */
@@ -167,6 +199,12 @@
         .pulse-animation { animation-name: pulse; }
         .shake-animation { animation-name: shake; }
         .float-animation { animation-name: float; }
+
+        /* Footer确保不遮挡内容 */
+        footer {
+            flex-shrink: 0; /* footer不缩小 */
+            border-top: 1px solid rgba(255, 255, 255, 0.1); /* 添加顶部边框 */
+        }
     </style>
 </head>
 <body class="text-gray-200 flex flex-col min-h-screen">
@@ -177,11 +215,11 @@
 
     <div class="relative z-10 flex flex-col min-h-screen">
         <!-- Header / Navigation -->
-        <header class="sticky top-0">
-            <div class="container mx-auto px-6 py-2">
+        <header class="sticky top-0 z-20 bg-black/20 backdrop-blur-sm">
+            <div class="container mx-auto px-6 py-3">
                 <div class="flex justify-between items-center mb-3">
                      <h1 class="text-xl md:text-2xl font-bold text-white">引爆数据价值工作坊</h1>
-                     <nav id="top-nav" class="hidden md:flex space-x-8 text-sm font-medium">
+                     <nav id="top-nav" class="hidden md:flex space-x-6 text-sm font-medium">
                         <a href="#" data-step="0" class="nav-link">开始</a>
                         <a href="#" data-step="1" class="nav-link">1. 开场</a>
                         <a href="#" data-step="3" class="nav-link">2. 共识</a>
@@ -199,52 +237,66 @@
         </header>
 
         <!-- Main Content -->
-        <main class="container mx-auto px-6 py-6 md:py-8 flex-grow">
+        <main class="container mx-auto px-6 flex-grow flex flex-col">
             <!-- Step 0: Welcome -->
             <section id="step-0" class="workshop-step">
-                <div class="text-center w-full">
-                    <h2 class="animate-in text-3xl md:text-4xl font-extrabold text-white leading-tight" style="animation-delay: 100ms;">
+                <div class="text-center w-full max-w-6xl mx-auto">
+                    <h2 class="animate-in text-2xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight" style="animation-delay: 100ms;">
                         引爆<span class="text-cyan-400">数据价值</span>
                     </h2>
-                    <p class="animate-in mt-3 text-base md:text-lg text-gray-300 max-w-3xl mx-auto" style="animation-delay: 200ms;">一个下午，让我们携手探索机会，共创解决方案，释放数据团队的无限潜能。</p>
-                    <p class="animate-in mt-1 text-sm text-gray-500" style="animation-delay: 300ms;">今天，我们是智慧碰撞的创新伙伴，共同开启数据价值的新篇章。</p>
+                    <p class="animate-in mt-3 text-sm md:text-lg lg:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed" style="animation-delay: 200ms;">
+                        一个下午，让我们携手探索机会，共创解决方案，释放数据团队的无限潜能。
+                    </p>
+                    <p class="animate-in mt-2 text-xs md:text-base text-gray-500" style="animation-delay: 300ms;">
+                        今天，我们是智慧碰撞的创新伙伴，共同开启数据价值的新篇章。
+                    </p>
                     
                     <!-- Time Schedule Overview -->
-                    <div class="animate-in mt-6 glass-card max-w-5xl mx-auto p-4 md:p-6" style="animation-delay: 400ms;">
-                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 text-center">📅 工作坊时间流</h3>
-                        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
-                            <div class="bg-white/5 p-3 md:p-4 rounded-xl border border-transparent hover:border-cyan-400 transition-all duration-300 transform hover:scale-105 group">
-                                <div class="text-3xl md:text-4xl mb-2">🚀</div>
+                    <div class="animate-in mt-6 glass-card p-3 md:p-6 lg:p-8" style="animation-delay: 400ms;">
+                        <div class="flex items-center justify-center mb-4">
+                            <div class="h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent w-16"></div>
+                            <h3 class="text-lg md:text-2xl lg:text-3xl font-bold text-white mx-4 text-center">📅 工作坊时间流</h3>
+                            <div class="h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent w-16"></div>
+                        </div>
+                        
+                        <!-- 响应式网格布局 -->
+                        <div class="grid grid-cols-2 lg:grid-cols-5 gap-3 md:gap-4">
+                            <div class="bg-white/5 p-3 md:p-4 rounded-lg border border-transparent hover:border-cyan-400 transition-all duration-300 transform hover:scale-105 group">
+                                <div class="text-2xl md:text-3xl mb-2">🚀</div>
                                 <div class="text-cyan-400 font-semibold text-xs">第一部分</div>
-                                <div class="text-white font-bold text-base md:text-lg mt-1">开场</div>
+                                <div class="text-white font-bold text-sm md:text-base mt-1">开场</div>
                                 <div class="text-gray-400 text-xs mt-1">20分钟</div>
                             </div>
-                            <div class="bg-white/5 p-3 md:p-4 rounded-xl border border-transparent hover:border-cyan-400 transition-all duration-300 transform hover:scale-105 group">
-                                <div class="text-3xl md:text-4xl mb-2">🤝</div>
+                            <div class="bg-white/5 p-3 md:p-4 rounded-lg border border-transparent hover:border-cyan-400 transition-all duration-300 transform hover:scale-105 group">
+                                <div class="text-2xl md:text-3xl mb-2">🤝</div>
                                 <div class="text-cyan-400 font-semibold text-xs">第二部分</div>
-                                <div class="text-white font-bold text-base md:text-lg mt-1">共识</div>
+                                <div class="text-white font-bold text-sm md:text-base mt-1">共识</div>
                                 <div class="text-gray-400 text-xs mt-1">25分钟</div>
                             </div>
-                            <div class="bg-white/5 p-3 md:p-4 rounded-xl border border-transparent hover:border-cyan-400 transition-all duration-300 transform hover:scale-105 group">
-                                <div class="text-3xl md:text-4xl mb-2">❓</div>
+                            <div class="bg-white/5 p-3 md:p-4 rounded-lg border border-transparent hover:border-cyan-400 transition-all duration-300 transform hover:scale-105 group">
+                                <div class="text-2xl md:text-3xl mb-2">❓</div>
                                 <div class="text-cyan-400 font-semibold text-xs">第三部分</div>
-                                <div class="text-white font-bold text-base md:text-lg mt-1">聚焦真问题</div>
+                                <div class="text-white font-bold text-sm md:text-base mt-1">聚焦真问题</div>
                                 <div class="text-gray-400 text-xs mt-1">50分钟</div>
                             </div>
-                            <div class="bg-white/5 p-3 md:p-4 rounded-xl border border-transparent hover:border-cyan-400 transition-all duration-300 transform hover:scale-105 group">
-                                <div class="text-3xl md:text-4xl mb-2">✨</div>
+                            <div class="bg-white/5 p-3 md:p-4 rounded-lg border border-transparent hover:border-cyan-400 transition-all duration-300 transform hover:scale-105 group">
+                                <div class="text-2xl md:text-3xl mb-2">✨</div>
                                 <div class="text-cyan-400 font-semibold text-xs">第四部分</div>
-                                <div class="text-white font-bold text-base md:text-lg mt-1">共创解决方案</div>
+                                <div class="text-white font-bold text-sm md:text-base mt-1">共创解决方案</div>
                                 <div class="text-gray-400 text-xs mt-1">65分钟</div>
                             </div>
-                            <div class="bg-white/5 p-3 md:p-4 rounded-xl border border-transparent hover:border-cyan-400 transition-all duration-300 transform hover:scale-105 group">
-                                <div class="text-3xl md:text-4xl mb-2">📈</div>
+                            <div class="bg-white/5 p-3 md:p-4 rounded-lg border border-transparent hover:border-cyan-400 transition-all duration-300 transform hover:scale-105 group">
+                                <div class="text-2xl md:text-3xl mb-2">📈</div>
                                 <div class="text-cyan-400 font-semibold text-xs">第五部分</div>
-                                <div class="text-white font-bold text-base md:text-lg mt-1">定义价值与行动</div>
+                                <div class="text-white font-bold text-sm md:text-base mt-1">定义价值与行动</div>
                                 <div class="text-gray-400 text-xs mt-1">50分钟</div>
                             </div>
                         </div>
-                        <p class="mt-4 text-xs text-gray-500 text-center">
+                        
+                        <div class="flex items-center justify-center mt-4">
+                            <div class="h-px bg-gradient-to-r from-transparent via-gray-600/30 to-transparent w-full max-w-md"></div>
+                        </div>
+                        <p class="mt-3 text-xs md:text-sm text-gray-500 text-center">
                             💡 建议在第二、三部分之间安排10-15分钟休息时间。
                         </p>
                     </div>
@@ -253,8 +305,8 @@
 
             <!-- Step 1: Icebreaker 1 - Two Truths and a Lie -->
             <section id="step-1" class="workshop-step">
-                <div class="w-full p-8 glass-card animate-in">
-                    <div class="flex justify-between items-start mb-8">
+                <div class="w-full p-4 md:p-6 glass-card animate-in">
+                    <div class="flex justify-between items-start mb-4 md:mb-6">
                         <div>
                             <p class="text-cyan-400 font-semibold">第一部分 (开场) (20分钟)</p>
                             <h3 class="text-3xl font-bold text-white mt-1">开场环节(1/4): 两真一假</h3>
@@ -265,7 +317,7 @@
                             <button onclick="startTimer(20 * 60, 'timer1')" class="mt-2 px-4 py-1 bg-cyan-500/80 text-white rounded-full text-sm hover:bg-cyan-500 transition">启动计时</button>
                         </div>
                     </div>
-                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="grid md:grid-cols-2 gap-4 md:gap-6 items-center">
                         <div class="bg-white/5 p-6 rounded-lg">
                             <h4 class="font-bold text-lg text-white">游戏规则</h4>
                             <p class="text-gray-400 mt-2 text-sm">这是一个关于"数据"的趣味游戏，帮助我们快速相互了解。</p>
@@ -299,7 +351,7 @@
 
             <!-- Step 2: Icebreaker 2 - Human Spectrogram -->
             <section id="step-2" class="workshop-step">
-                <div class="w-full p-8 glass-card animate-in">
+                <div class="w-full p-4 md:p-6 glass-card animate-in">
                     <p class="text-cyan-400 font-semibold">第一部分 (开场) (接续)</p>
                     <h3 class="text-3xl font-bold text-white mt-1">开场环节(2/4): 人体光谱 (座位版)</h3>
                     <p class="text-5xl mt-4 animate-in icon-animate pulse-animation" style="animation-delay: 400ms;">🧘</p>
@@ -323,8 +375,8 @@
 
             <!-- Step 3: Alignment -->
             <section id="step-3" class="workshop-step">
-                <div class="w-full p-8 glass-card animate-in">
-                    <div class="flex justify-between items-start mb-8">
+                <div class="w-full p-4 md:p-6 glass-card animate-in">
+                    <div class="flex justify-between items-start mb-4 md:mb-6">
                         <div>
                             <p class="text-cyan-400 font-semibold">第二部分 (共识) (25分钟)</p>
                             <h3 class="text-3xl font-bold text-white mt-1">共识环节(3/4): 描绘理想未来</h3>
@@ -355,7 +407,7 @@
 
             <!-- Step 4: NEW - Brainstorm Current Problems -->
             <section id="step-4" class="workshop-step">
-                <div class="w-full p-8 glass-card animate-in">
+                <div class="w-full p-4 md:p-6 glass-card animate-in">
                     <p class="text-cyan-400 font-semibold">第二部分 (共识) (接续)</p>
                     <h3 class="text-3xl font-bold text-white mt-1">共识环节(4/4): 共创当前问题</h3>
                     <p class="text-5xl mt-4 animate-in icon-animate shake-animation" style="animation-delay: 400ms;">💡</p>
@@ -369,8 +421,8 @@
 
             <!-- Step 5: User Journey Map Method Explanation -->
             <section id="step-5" class="workshop-step">
-                <div class="w-full p-8 glass-card animate-in">
-                    <div class="flex justify-between items-start mb-8">
+                <div class="w-full p-4 md:p-6 glass-card animate-in">
+                    <div class="flex justify-between items-start mb-4 md:mb-6">
                         <div>
                             <p class="text-cyan-400 font-semibold">第三部分 (50分钟)</p>
                             <h3 class="text-3xl font-bold text-white mt-1">聚焦真问题</h3>
@@ -384,7 +436,7 @@
                     <p class="text-cyan-400 font-semibold">方法学习</p>
                     <h3 class="text-3xl font-bold text-white mt-1">工具1: 用户旅程图 (User Journey Map)</h3>
                     <p class="text-gray-400 mt-2">这是一个"共情"工具，帮助我们站在用户（业务同事）的角度，完整地体验他们使用数据的全过程。</p>
-                    <div class="mt-8 grid md:grid-cols-2 gap-8 items-center">
+                    <div class="mt-4 md:mt-6 grid md:grid-cols-2 gap-4 md:gap-6 items-center">
                         <div class="bg-white/5 p-6 rounded-lg">
                             <h4 class="font-bold text-lg text-white">为什么用它？</h4>
                             <ul class="list-disc list-inside text-gray-300 mt-2 space-y-2 text-sm">
@@ -409,11 +461,11 @@
 
             <!-- Step 6: Part 2 Activity -->
             <section id="step-6" class="workshop-step">
-                 <div class="w-full p-8 glass-card animate-in">
+                 <div class="w-full p-4 md:p-6 glass-card animate-in">
                     <p class="text-cyan-400 font-semibold">第三部分 (50分钟)</p>
                     <h3 class="text-3xl font-bold text-white mt-1">聚焦真问题 (活动)</h3>
                     <p class="text-5xl mt-4 animate-in icon-animate pulse-animation" style="animation-delay: 400ms;">📊</p>
-                    <div class="mt-8 grid md:grid-cols-2 gap-8">
+                    <div class="mt-4 md:mt-6 grid md:grid-cols-2 gap-4 md:gap-6">
                         <div class="bg-white/5 p-6 rounded-lg">
                             <h4 class="font-bold text-lg text-white">活动1: 绘制用户旅程 & 补充痛点</h4>
                             <p class="text-gray-400 mt-2 text-sm">一起在白板上绘制典型用户的旅程图，并将新发现的痛点补充到我们刚才的问题墙上。</p>
@@ -429,12 +481,12 @@
             
             <!-- Step 7: 5 Whys Method Explanation -->
             <section id="step-7" class="workshop-step">
-                <div class="w-full p-8 glass-card animate-in">
+                <div class="w-full p-4 md:p-6 glass-card animate-in">
                     <p class="text-cyan-400 font-semibold">方法学习</p>
                     <h3 class="text-3xl font-bold text-white mt-1">工具2: 5个为什么 (5 Whys)</h3>
                     <p class="text-5xl mt-4 animate-in icon-animate float-animation" style="animation-delay: 400ms;">❓</p>
                     <p class="text-gray-400 mt-2">这是一个挖掘问题根源的强大工具，防止我们只解决了表面症状。</p>
-                    <div class="mt-8 grid md:grid-cols-2 gap-8 items-center">
+                    <div class="mt-4 md:mt-6 grid md:grid-cols-2 gap-4 md:gap-6 items-center">
                         <div class="bg-white/5 p-6 rounded-lg">
                             <h4 class="font-bold text-lg text-white">核心思想</h4>
                             <p class="text-gray-400 mt-2 text-sm">对一个问题，连续追问五次"为什么？"，层层递进，直到找到无法再问下去的根本原因。</p>
@@ -455,10 +507,10 @@
 
             <!-- Step 8: HMW Method Explanation -->
             <section id="step-8" class="workshop-step">
-                <div class="w-full p-8 glass-card animate-in">
-                     <div class="flex justify-between items-start mb-8">
-                        <div>
-                            <p class="text-cyan-400 font-semibold">第四部分 (65分钟)</p>
+                                <div class="w-full p-4 md:p-6 glass-card animate-in">
+                      <div class="flex justify-between items-start mb-4 md:mb-6">
+                         <div>
+                             <p class="text-cyan-400 font-semibold">第四部分 (65分钟)</p>
                             <h3 class="text-3xl font-bold text-white mt-1">共创解决方案</h3>
                             <p class="text-5xl mt-4 animate-in icon-animate pulse-animation" style="animation-delay: 400ms;">💭</p>
                         </div>
@@ -470,7 +522,7 @@
                     <p class="text-cyan-400 font-semibold">方法学习</p>
                     <h3 class="text-3xl font-bold text-white mt-1">工具3: "我们如何才能..." (HMW)</h3>
                     <p class="text-gray-400 mt-2">将"问题根源"转化为"创新机会"，激发解决方案。</p>
-                    <div class="mt-8 grid md:grid-cols-2 gap-8 items-center">
+                    <div class="mt-4 md:mt-6 grid md:grid-cols-2 gap-4 md:gap-6 items-center">
                         <div class="bg-white/5 p-6 rounded-lg">
                             <h4 class="font-bold text-lg text-white">核心思想</h4>
                             <p class="text-gray-400 mt-2 text-sm">将消极的障碍，转变为积极的、开放式的探索方向。</p>
@@ -485,7 +537,7 @@
 
             <!-- Step 9: Part 3 Activity 1 - HMW -->
             <section id="step-9" class="workshop-step">
-                <div class="w-full p-8 glass-card animate-in">
+                <div class="w-full p-4 md:p-6 glass-card animate-in">
                     <p class="text-cyan-400 font-semibold">第四部分 (接续)</p>
                     <h3 class="text-3xl font-bold text-white mt-1">共创解决方案 (活动1)</h3>
                     <p class="text-5xl mt-4 animate-in icon-animate shake-animation" style="animation-delay: 400ms;">🧠</p>
@@ -500,49 +552,49 @@
 
             <!-- Step 10: Matrix Method Explanation -->
             <section id="step-10" class="workshop-step">
-                <div class="w-full p-8 glass-card animate-in">
-                    <p class="text-cyan-400 font-semibold">方法学习</p>
-                    <h3 class="text-3xl font-bold text-white mt-1">工具4: "影响力-可行性" 矩阵</h3>
-                    <p class="text-5xl mt-4 animate-in icon-animate pulse-animation" style="animation-delay: 400ms;">📊</p>
-                    <p class="text-gray-400 mt-2">从众多想法中，快速识别出"必赢之战"的决策工具。</p>
-                    <div class="mt-8 grid md:grid-cols-2 gap-8 items-center">
-                        <div class="bg-white/5 p-6 rounded-lg h-full flex flex-col justify-center items-center">
-                            <h4 class="font-bold text-lg text-white mb-8 text-center">四象限分析</h4>
-                            <div class="w-full max-w-md aspect-square relative">
+                <div class="w-full p-4 md:p-6 glass-card animate-in">
+                    <p class="text-cyan-400 font-semibold text-sm">方法学习</p>
+                    <h3 class="text-xl md:text-2xl font-bold text-white mt-1">工具4: "影响力-可行性" 矩阵</h3>
+                    <p class="text-3xl md:text-4xl mt-2 animate-in icon-animate pulse-animation" style="animation-delay: 400ms;">📊</p>
+                    <p class="text-gray-400 mt-2 text-sm">从众多想法中，快速识别出"必赢之战"的决策工具。</p>
+                    <div class="mt-4 grid md:grid-cols-2 gap-4 items-center">
+                        <div class="bg-white/5 p-4 rounded-lg h-full flex flex-col justify-center items-center">
+                            <h4 class="font-bold text-base text-white mb-4 text-center">四象限分析</h4>
+                            <div class="w-full max-w-xs aspect-square relative">
                                 <!-- Y-axis Label -->
-                                <div class="absolute -left-12 top-1/2 -translate-y-1/2 transform -rotate-90 text-sm text-gray-300 flex items-center">
+                                <div class="absolute -left-10 top-1/2 -translate-y-1/2 transform -rotate-90 text-xs text-gray-300 flex items-center">
                                     <span>影响力</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 transform rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19V5m-7 7l7-7 7 7"></path></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 ml-1 transform rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19V5m-7 7l7-7 7 7"></path></svg>
                                 </div>
                                 <!-- X-axis Label -->
-                                <div class="absolute -bottom-8 left-1/2 -translate-x-1/2 text-sm text-gray-300 flex items-center">
+                                <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs text-gray-300 flex items-center">
                                     <span>可行性</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                                 </div>
 
                                 <div class="w-full h-full bg-white/20 grid grid-cols-2 grid-rows-2 gap-px p-px rounded-lg">
-                                    <div class="bg-gray-900 rounded-tl-md flex flex-col justify-center items-center p-2 text-center">
-                                        <span class="font-bold text-green-300">战略投入</span>
-                                        <span class="text-xs text-gray-300 mt-1">(高影响/低可行)</span>
+                                    <div class="bg-gray-900 rounded-tl-md flex flex-col justify-center items-center p-1 text-center">
+                                        <span class="font-bold text-green-300 text-xs">战略投入</span>
+                                        <span class="text-xs text-gray-300 mt-0.5">(高影响/低可行)</span>
                                     </div>
-                                    <div class="bg-gray-900 rounded-tr-md flex flex-col justify-center items-center p-2 text-center border-2 border-cyan-400 shadow-lg shadow-cyan-500/20">
-                                        <span class="font-bold text-cyan-200 text-lg">黄金方案</span>
-                                        <span class="text-xs text-gray-200 mt-1">(高影响/高可行)</span>
+                                    <div class="bg-gray-900 rounded-tr-md flex flex-col justify-center items-center p-1 text-center border-2 border-cyan-400 shadow-lg shadow-cyan-500/20">
+                                        <span class="font-bold text-cyan-200 text-sm">黄金方案</span>
+                                        <span class="text-xs text-gray-200 mt-0.5">(高影响/高可行)</span>
                                     </div>
-                                    <div class="bg-gray-900 rounded-bl-md flex flex-col justify-center items-center p-2 text-center">
-                                        <span class="font-bold text-gray-300">避免</span>
-                                        <span class="text-xs text-gray-400 mt-1">(低影响/低可行)</span>
+                                    <div class="bg-gray-900 rounded-bl-md flex flex-col justify-center items-center p-1 text-center">
+                                        <span class="font-bold text-gray-300 text-xs">避免</span>
+                                        <span class="text-xs text-gray-400 mt-0.5">(低影响/低可行)</span>
                                     </div>
-                                    <div class="bg-gray-900 rounded-br-md flex flex-col justify-center items-center p-2 text-center">
-                                        <span class="font-bold text-blue-300">价值有限</span>
-                                        <span class="text-xs text-gray-300 mt-1">(低影响/高可行)</span>
+                                    <div class="bg-gray-900 rounded-br-md flex flex-col justify-center items-center p-1 text-center">
+                                        <span class="font-bold text-blue-300 text-xs">价值有限</span>
+                                        <span class="text-xs text-gray-300 mt-0.5">(低影响/高可行)</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white/5 p-6 rounded-lg h-full">
-                            <h4 class="font-bold text-lg text-white">如何操作</h4>
-                            <ol class="list-decimal list-inside text-gray-300 mt-2 space-y-2 text-sm">
+                        <div class="bg-white/5 p-4 rounded-lg h-full">
+                            <h4 class="font-bold text-base text-white">如何操作</h4>
+                            <ol class="list-decimal list-inside text-gray-300 mt-2 space-y-1 text-sm">
                                 <li>在白板上画出四象限矩阵。</li>
                                 <li>评估每个方案的"预期影响力"和"实施可行性"。</li>
                                 <li>将方案便利贴放在矩阵的相应位置。</li>
@@ -555,7 +607,7 @@
 
             <!-- Step 11: Part 3 Activity 2 - Matrix -->
             <section id="step-11" class="workshop-step">
-                <div class="w-full p-8 glass-card animate-in">
+                <div class="w-full p-4 md:p-6 glass-card animate-in">
                      <p class="text-cyan-400 font-semibold">第四部分 (接续)</p>
                      <h3 class="text-3xl font-bold text-white mt-1">共创解决方案 (活动2)</h3>
                      <p class="text-5xl mt-4 animate-in icon-animate float-animation" style="animation-delay: 400ms;">🎯</p>
@@ -568,7 +620,7 @@
 
             <!-- Step 12: Part 4 - 定义价值与行动 -->
             <section id="step-12" class="workshop-step">
-                <div class="w-full p-8 glass-card animate-in">
+                <div class="w-full p-4 md:p-6 glass-card animate-in">
                     <div class="flex justify-between items-start">
                         <div>
                             <p class="text-cyan-400 font-semibold">第五部分 (50分钟)</p>
@@ -581,7 +633,7 @@
                             <button onclick="startTimer(50 * 60, 'timer4')" class="mt-2 px-4 py-1 bg-cyan-500/80 text-white rounded-full text-sm hover:bg-cyan-500 transition">启动计时</button>
                         </div>
                     </div>
-                    <div class="mt-8 grid md:grid-cols-2 gap-8">
+                    <div class="mt-4 md:mt-6 grid md:grid-cols-2 gap-4 md:gap-6">
                         <div class="bg-white/5 p-6 rounded-lg">
                             <h4 class="font-bold text-lg text-white">活动1: 价值记分卡</h4>
                             <p class="text-gray-400 mt-2 text-sm mb-3">为"黄金方案"设计衡量成功的标准。</p>
@@ -607,11 +659,22 @@
             </section>
         </main>
 
-        <!-- Footer / Step Navigation -->
-        <footer class="container mx-auto px-6 py-2">
-            <div class="flex justify-between items-center">
-                <button id="prev-btn" class="px-6 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition disabled:opacity-50 disabled:cursor-not-allowed">上一步</button>
-                <button id="next-btn" class="px-6 py-2 bg-cyan-500 text-white rounded-lg hover:bg-cyan-400 transition-transform active:scale-95">下一步</button>
+        <!-- Footer / Navigation -->
+        <footer class="sticky bottom-0 z-20 bg-black/20 backdrop-blur-sm">
+            <div class="container mx-auto px-6 py-4">
+                <div class="flex justify-between items-center">
+                    <button id="prev-btn" class="px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-medium">
+                        ← 上一步
+                    </button>
+                    <div class="flex space-x-2">
+                        <span id="current-step" class="text-white font-medium">1</span>
+                        <span class="text-gray-400">/</span>
+                        <span id="total-steps" class="text-gray-400">14</span>
+                    </div>
+                    <button id="next-btn" class="px-6 py-3 bg-cyan-500 text-white rounded-lg hover:bg-cyan-600 transition-colors duration-300 font-medium">
+                        下一步 →
+                    </button>
+                </div>
             </div>
         </footer>
     </div>
@@ -747,4 +810,5 @@
     </script>
 </body>
 </html>
+
 
