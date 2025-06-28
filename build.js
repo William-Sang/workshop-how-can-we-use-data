@@ -109,10 +109,12 @@ function build() {
     
     // 移除组件加载脚本
     const componentLoaderStart = template.indexOf('<!-- 组件加载脚本 -->');
-    const componentLoaderEnd = template.indexOf('</script>', componentLoaderStart) + 9;
-    if (componentLoaderStart !== -1 && componentLoaderEnd !== -1) {
-        template = template.slice(0, componentLoaderStart) + template.slice(componentLoaderEnd);
-        console.log('🗑️  移除组件加载脚本');
+    if (componentLoaderStart !== -1) {
+        const componentLoaderEnd = template.indexOf('</script>', componentLoaderStart) + 9;
+        if (componentLoaderEnd !== -1) {
+            template = template.slice(0, componentLoaderStart) + template.slice(componentLoaderEnd);
+            console.log('🗑️  移除组件加载脚本');
+        }
     }
     
     // 清理多余的空行
@@ -124,6 +126,7 @@ function build() {
     console.log('\n✨ 构建完成！');
     console.log(`📁 输出文件: ${CONFIG.outputFile}`);
     console.log(`📊 文件大小: ${Math.round(template.length / 1024)} KB`);
+    console.log(`📏 总行数: ${template.split('\n').length}`);
 }
 
 /**
@@ -139,8 +142,31 @@ function checkStartScript() {
     }
 }
 
+/**
+ * 显示帮助信息
+ */
+function showHelp() {
+    console.log('🏗️  引爆数据价值工作坊 - 构建工具\n');
+    console.log('用法:');
+    console.log('  node build.js       构建单文件版本');
+    console.log('  node build.js --help 显示此帮助信息');
+    console.log('\n输出文件:');
+    console.log('  index-built.html    完整的单文件版本');
+    console.log('\n功能特性:');
+    console.log('  - 内联所有CSS和JavaScript');
+    console.log('  - 合并所有组件到单个HTML文件');
+    console.log('  - 包含完整的工作坊功能和配置');
+}
+
 // 主函数
 function main() {
+    // 检查帮助参数
+    const args = process.argv.slice(2);
+    if (args.includes('--help') || args.includes('-h')) {
+        showHelp();
+        return;
+    }
+    
     console.log('🏗️  引爆数据价值工作坊 - 构建工具\n');
     
     // 检查必要文件是否存在
