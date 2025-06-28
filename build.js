@@ -11,7 +11,7 @@ const path = require('path');
 // 配置
 const CONFIG = {
     outputFile: 'index-built.html',
-    templateFile: 'index-modular.html',
+    templateFile: 'index.html',
     components: [
         { placeholder: 'background-placeholder', file: 'components/background.html' },
         { placeholder: 'header-placeholder', file: 'components/header.html' },
@@ -127,49 +127,15 @@ function build() {
 }
 
 /**
- * 创建开发服务器启动脚本
+ * 检查启动脚本是否存在
  */
-function createDevScript() {
-    const devScript = `#!/bin/bash
-
-# 开发服务器启动脚本
-echo "🚀 启动开发服务器..."
-
-# 检查是否安装了 live-server
-if command -v live-server &> /dev/null; then
-    echo "📡 使用 live-server 启动..."
-    live-server --port=8000 --open=index-modular.html
-elif command -v python3 &> /dev/null; then
-    echo "🐍 使用 Python3 启动..."
-    python3 -m http.server 8000
-elif command -v python &> /dev/null; then
-    echo "🐍 使用 Python 启动..."
-    python -m http.server 8000
-elif command -v npx &> /dev/null; then
-    echo "📦 使用 npx serve 启动..."
-    npx serve . -p 8000
-else
-    echo "❌ 未找到可用的服务器工具"
-    echo "请安装以下工具之一："
-    echo "  - live-server: npm install -g live-server"
-    echo "  - Python 3.x"
-    echo "  - Node.js (包含npx)"
-    exit 1
-fi
-
-echo "🌐 服务器地址: http://localhost:8000"
-echo "📱 模块化版本: http://localhost:8000/index-modular.html"
-echo "📄 原始版本: http://localhost:8000/index.html"
-`;
-    
-    writeFile('dev-server.sh', devScript);
-    
-    // 设置执行权限
-    try {
-        fs.chmodSync('dev-server.sh', '755');
-        console.log('🔧 创建开发服务器脚本: dev-server.sh');
-    } catch (error) {
-        console.log('⚠️  无法设置执行权限，请手动执行: chmod +x dev-server.sh');
+function checkStartScript() {
+    if (fs.existsSync('start.sh')) {
+        console.log('✅ 启动脚本已存在: start.sh');
+        console.log('💡 使用 ./start.sh 启动开发服务器');
+    } else {
+        console.log('⚠️  未找到启动脚本，请手动启动服务器');
+        console.log('💡 推荐命令: python3 -m http.server 8000');
     }
 }
 
@@ -190,12 +156,13 @@ function main() {
     // 执行构建
     build();
     
-    // 创建开发脚本
-    createDevScript();
+    // 检查启动脚本
+    checkStartScript();
     
     console.log('\n🎉 所有任务完成！');
     console.log('\n📝 使用说明:');
-    console.log('  - 开发: ./dev-server.sh 或 node build.js');
+    console.log('  - 开发: ./start.sh 启动开发服务器');
+    console.log('  - 构建: node build.js 生成单文件版本');
     console.log('  - 生产: 使用 index-built.html');
     console.log('  - 模块化开发: 编辑 components/ 目录下的文件');
 }
