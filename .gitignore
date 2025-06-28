@@ -1,0 +1,190 @@
+# 📋 引爆数据价值工作坊 - Git 忽略文件
+
+# ==================== 项目特定文件 ====================
+# 待办事项备份文件
+TODO.md.backup
+
+# 构建生成的文件
+index-built.html
+
+# ==================== 系统文件 ====================
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ==================== 编辑器和IDE ====================
+# VSCode
+.vscode/
+*.code-workspace
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+.vimrc.local
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# ==================== 开发工具 ====================
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+.pnp
+.pnp.js
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# ==================== 日志和临时文件 ====================
+# 日志文件
+*.log
+logs/
+*.log.*
+
+# 临时文件
+*.tmp
+*.temp
+*.cache
+.cache/
+
+# 运行时文件
+*.pid
+*.seed
+*.pid.lock
+
+# ==================== 压缩文件 ====================
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# ==================== 媒体文件（可选） ====================
+# 如果不需要版本控制大型媒体文件，可以取消注释
+# *.mp4
+# *.avi
+# *.mov
+# *.wmv
+# *.flv
+# *.webm
+# *.mp3
+# *.wav
+# *.flac
+# *.aac
+# *.jpg
+# *.jpeg
+# *.png
+# *.gif
+# *.bmp
+# *.tiff
+# *.svg
+# *.ico
+
+# ==================== 安全相关 ====================
+# 密钥和证书
+*.key
+*.pem
+*.p12
+*.crt
+*.cer
+*.der
+
+# 环境变量文件
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ==================== 其他 ====================
+# 覆盖率报告
+coverage/
+*.lcov
+
+# 文档生成
+docs/_build/
+
+# 测试结果
+.nyc_output
+.coverage
+htmlcov/
+
+# 包管理器锁文件（根据项目需要选择保留或忽略）
+# package-lock.json
+# yarn.lock 
