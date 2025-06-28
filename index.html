@@ -9,6 +9,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        html {
+            font-size: 22px;
+        }
+        @media (min-width: 768px) {
+            html {
+                font-size: 26px;
+            }
+        }
+        @media (min-width: 1280px) {
+            html {
+                font-size: 30px;
+            }
+        }
         :root {
             --glow-x: 50%;
             --glow-y: 50%;
@@ -143,6 +156,14 @@
         .shake-animation { animation-name: shake; }
         .float-animation { animation-name: float; }
     </style>
+    <style>
+      @media (min-width: 1024px) {
+        .container, main.container {
+          transform: scale(0.6);
+          transform-origin: top center;
+        }
+      }
+    </style>
 </head>
 <body class="text-gray-200 flex flex-col min-h-screen">
     <div class="blob blob1"></div>
@@ -151,7 +172,7 @@
     <div class="relative z-10 flex flex-col min-h-screen">
         <!-- Header / Navigation -->
         <header class="sticky top-0">
-            <div class="container mx-auto px-6 py-4">
+            <div class="container mx-auto px-6 py-2">
                 <div class="flex justify-between items-center mb-3">
                      <h1 class="text-xl md:text-2xl font-bold text-white">引爆数据价值工作坊</h1>
                      <nav id="top-nav" class="hidden md:flex space-x-8 text-sm font-medium">
@@ -172,7 +193,7 @@
         </header>
 
         <!-- Main Content -->
-        <main class="container mx-auto px-6 py-8 flex-grow">
+        <main class="container mx-auto px-6 py-2 flex-grow">
             <!-- Step 0: Welcome -->
             <section id="step-0" class="workshop-step">
                 <div class="text-center">
@@ -557,7 +578,7 @@
         </main>
 
         <!-- Footer / Step Navigation -->
-        <footer class="container mx-auto px-6 py-4">
+        <footer class="container mx-auto px-6 py-2">
             <div class="flex justify-between items-center">
                 <button id="prev-btn" class="px-6 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition disabled:opacity-50 disabled:cursor-not-allowed">上一步</button>
                 <button id="next-btn" class="px-6 py-2 bg-cyan-500 text-white rounded-lg hover:bg-cyan-400 transition-transform active:scale-95">下一步</button>
