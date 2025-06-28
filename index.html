@@ -37,6 +37,7 @@
     </div>
 
     <!-- 引入主要的JavaScript功能 -->
+    <script src="assets/js/config.js"></script>
     <script src="assets/js/workshop.js"></script>
     
     <!-- 组件加载脚本 -->
@@ -71,6 +72,11 @@
             );
             
             console.log('所有组件加载完成');
+            
+            // 组件加载完成后初始化工作坊
+            if (typeof initWorkshop === 'function') {
+                initWorkshop();
+            }
         }
 
         // 页面加载完成后加载组件

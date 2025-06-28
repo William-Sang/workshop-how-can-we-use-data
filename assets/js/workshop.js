@@ -307,8 +307,8 @@ function goToStep(stepIndex) {
     }
 }
 
-// 页面加载完成后初始化
-document.addEventListener('DOMContentLoaded', initWorkshop);
+// 不再自动初始化，等待组件加载完成后手动调用
+// document.addEventListener('DOMContentLoaded', initWorkshop);
 
 // 将主要函数暴露到全局作用域，供HTML中的onclick等使用
 window.startTimer = startTimer;
