@@ -320,4 +320,113 @@ footer {
 
 .workshop-step::-webkit-scrollbar-thumb:hover {
     background: rgba(34, 211, 238, 0.8);
+}
+
+/* 影响力-可行性矩阵响应式优化 */
+@media (max-width: 1024px) {
+    /* 大屏幕以下改为上下布局 */
+    #step-10 .grid[class*="lg:grid-cols-3"] {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    #step-10 .lg\\:col-span-2 {
+        grid-column: span 1;
+    }
+    
+    /* 矩阵高度调整 */
+    #step-10 .relative[style*="height: 380px"] {
+        height: 320px !important;
+    }
+    
+    /* 调整象限内文字 */
+    #step-10 .absolute[style*="calc(50%"] .text-lg {
+        font-size: 1rem !important;
+    }
+    
+    #step-10 .absolute[style*="calc(50%"] .text-sm {
+        font-size: 0.75rem !important;
+    }
+    
+    #step-10 .absolute[style*="calc(50%"] .text-xs {
+        font-size: 0.625rem !important;
+    }
+}
+
+@media (max-width: 768px) {
+    /* 平板和手机端优化 */
+    #step-10 .grid[class*="lg:grid-cols-3"] {
+        gap: 0.75rem;
+    }
+    
+    /* 矩阵高度进一步调整 */
+    #step-10 .relative[style*="height: 380px"] {
+        height: 280px !important;
+    }
+    
+    /* 象限内文字调整 */
+    #step-10 .absolute[style*="calc(50%"] .text-lg {
+        font-size: 0.875rem !important;
+    }
+    
+    #step-10 .absolute[style*="calc(50%"] .text-sm {
+        font-size: 0.625rem !important;
+    }
+    
+    #step-10 .absolute[style*="calc(50%"] .text-xs {
+        font-size: 0.5rem !important;
+    }
+    
+    #step-10 .absolute[style*="calc(50%"] {
+        padding: 0.5rem !important;
+    }
+}
+
+@media (max-height: 800px) {
+    /* 矮屏幕优化 */
+    #step-10 .relative[style*="height: 380px"] {
+        height: 300px !important;
+    }
+    
+    #step-10 .space-y-3 > * + * {
+        margin-top: 0.5rem;
+    }
+}
+
+@media (max-height: 700px) {
+    /* 更矮的屏幕 */
+    #step-10 .relative[style*="height: 380px"] {
+        height: 260px !important;
+    }
+    
+    #step-10 .space-y-3 > * + * {
+        margin-top: 0.25rem;
+    }
+    
+    #step-10 .absolute[style*="calc(50%"] {
+        padding: 0.5rem !important;
+    }
+}
+
+@media (max-height: 600px) {
+    /* 超矮屏幕 */
+    #step-10 .relative[style*="height: 380px"] {
+        height: 220px !important;
+    }
+    
+    #step-10 .absolute[style*="calc(50%"] .text-lg {
+        font-size: 0.75rem !important;
+    }
+    
+    #step-10 .absolute[style*="calc(50%"] .text-sm {
+        font-size: 0.5rem !important;
+    }
+    
+    #step-10 .absolute[style*="calc(50%"] .text-xs {
+        font-size: 0.375rem !important;
+    }
+    
+    #step-10 .absolute[style*="calc(50%"] {
+        padding: 0.25rem !important;
+    }
 } 
